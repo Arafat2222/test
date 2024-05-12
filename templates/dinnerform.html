@@ -1,0 +1,66 @@
+{% extends "nav.html" %}
+
+{% block title %}
+Upload Dinner Item
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Dinner Item</title>
+</head>
+<body>
+    {% block content %}
+    <div class="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">Upload Dinner Item</h1>
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" id="name" name="name" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="price" class="block text-sm font-medium text-gray-700">Price ($)</label>
+                <input type="number" id="price" name="price" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea id="description" name="description" rows="3" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"></textarea>
+            </div>
+            <div>
+                <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+                <input type="file" id="image" name="image" accept="image/*" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="discount" class="block text-sm font-medium text-gray-700">Discount (%)</label>
+                <input type="number" id="discount" name="discount" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="chefs_special" class="block text-sm font-medium text-gray-700">Chef's Special</label>
+                <input type="checkbox" id="chefs_special" name="chefs_special" class="mt-1 rounded text-indigo-600 focus:ring-indigo-500">
+            </div>
+            <div>
+                <label for="rating" class="block text-sm font-medium text-gray-700">Rating</label>
+                <input type="number" id="rating" name="rating" step="0.1" min="0" max="5" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+            <div>
+                <label for="spiciness_level" class="block text-sm font-medium text-gray-700">Spiciness Level</label>
+                <select id="spiciness_level" name="spiciness_level" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                    <option value="Mild">Mild</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Spicy">Spicy</option>
+                </select>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Upload
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% endblock %}
+</body>
+</html>

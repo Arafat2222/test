@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Breakfast item
+{% endblock %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breakfast</title>
+</head>
+<body>
+    {% block content %}
+   
+    <div class="font-[sans-serif]">
+        <div class="p-4 mx-auto lg:max-w-6xl max-w-xl md:max-w-full">
+            <h2 class="text-4xl text-center font-extrabold text-gray-800 mb-12">Buy Breakfast Item from here</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for breakfast in breakfasts %}
+                <div class="bg-gray-100 rounded-2xl p-6 cursor-pointer hover:-translate-y-2 transition-all relative">
+                    <a href="{% url 'breakfast_detail' breakfast.id %}">
+                    <div class="bg-gray-200 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer absolute top-4 right-4">
+                        <i class="ri-heart-3-line"></i>
+                    </div>
+                    <div class="max-w-lg w-11/12 h-48 overflow-hidden mx-auto rounded-lg">
+                        <img src="{{ breakfast.image.url }}" alt="{{ breakfast.name }}" class="h-full w-full object-cover rounded-lg" />
+                    </div>
+                </a>
+                    
+                    <div class="text-center mt-4">
+                        <h3 class="text-lg font-bold text-gray-800">{{ breakfast.name }}</h3>
+                        <h4 class="text-xl text-gray-700 font-bold mt-2 mb-4">Price:{{ breakfast.price }} TK</h4>
+                        <a href="{% url 'add_to_cart' 'breakfast' breakfast.id %}" class="w-full mt-6 px-6 py-3 bg-[#333] hover:bg-[#222] text-white rounded-full">Add to cart</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+
+
+    {% endblock %}
+</body>
+</html>

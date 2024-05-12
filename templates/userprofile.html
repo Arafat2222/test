@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}
+User Profile
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>User Profile</title>
+</head>
+<body>
+    {% block content %}
+    <div class="max-w-full mx-auto bg-white rounded-lg overflow-hidden shadow-lg p-6">
+
+        <div>
+            <div class="flex items-center py-2">
+                <span class="font-semibold w-24">Username:</span>
+                <p>{{ user.username }}</p>
+            </div>
+            <div class="flex items-center py-2">
+                <span class="font-semibold w-24">Email:</span>
+                <p>{{ user.email }}</p>
+            </div>
+            <div class="flex items-center py-2">
+                <span class="font-semibold w-24">Joined Date:</span>
+                <p>{{ user.date_joined }}</p>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a href="#" class="text-blue-500 hover:text-blue-700 text-sm font-semibold">Edit Profile</a>
+        </div>
+    
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4">Order History</h2>
+    
+        {% if orders %}
+            {% for order in orders %}
+                <div class="border border-gray-200 rounded-md p-4 mb-4">
+                    <h3 class="text-lg font-semibold mb-2">
+                        {% if order.breakfast %}
+                            {{ order.breakfast.name }}
+                        {% elif order.lunch %}
+                            {{ order.lunch.name }}
+                        {% elif order.dinner %}
+                            {{ order.dinner.name }}
+                        {% endif %}
+                    </h3>
+                    <p class="text-sm text-gray-600 mb-1">Quantity: {{ order.quantity }}</p>
+                    <p class="text-sm text-gray-600 mb-1">Total Price: {{ order.total_price }} TK</p>
+                    <p class="text-sm text-gray-600 mb-1">Order Date: {{ order.order_date }}</p>
+                    <p class="text-sm text-gray-600 mb-1">
+                        Status: 
+                        <span class="text-green-600">{{ order.is_completed|yesno:"Completed,Not completed" }}</span> <br><br>
+                        <span class="text-red-600">{{ order.is_cancelled|yesno:"Pending,Approved" }}</span>
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-sm text-gray-600">You have no orders.</p>
+        {% endif %}
+    </div>
+    
+      
+
+
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% extends "nav.html" %}
+
+{% block title %}
+Message & Contact
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Box</title>
+</head>
+<body>
+    {% block content %}
+
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Contact Messages</h2>
+    
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white rounded-lg overflow-hidden shadow-lg">
+                <thead class="bg-gray-200 text-gray-700">
+                    <tr>
+                        <th class="px-4 py-2">Name</th>
+                        <th class="px-4 py-2">Email</th>
+                        <th class="px-4 py-2">Phone</th>
+                        <th class="px-4 py-2">Message</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600">
+                    {% for message in contact %}
+                        <tr class="{% cycle 'bg-gray-50' '' %}">
+                            <td class="border px-4 py-2">{{ message.name }}</td>
+                            <td class="border px-4 py-2">{{ message.email }}</td>
+                            <td class="border px-4 py-2">{{ message.phone }}</td>
+                            <td class="border px-4 py-2">{{ message.message }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-4">No messages yet.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    
+
+    {% endblock %}
+</body>
+</html>

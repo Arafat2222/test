@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation Email</title>
+</head>
+<body>
+    <h2>Order Confirmation</h2>
+    <p>Dear {{ user.username }},</p>
+    <p>Thank you for your purchase! Here are the details of your order:</p>
+    {% for order in order_items %}
+        <div class="order-item">
+            {% if order.breakfast %}
+                <h3>{{ order.breakfast.name }}</h3>
+            {% elif order.lunch %}
+                <h3>{{ order.lunch.name }}</h3>
+            {% elif order.dinner %}
+                <h3>{{ order.dinner.name }}</h3>
+            {% endif %}
+            <p>Quantity: {{ order.quantity }}</p>
+            <p>Total Price: {{ order.total_price }} TK</p>
+        </div>
+    {% endfor %}
+    <p>Total Amount: {{ total_amount }} TK</p>
+    <p>We hope you enjoy your meals!</p>
+    <p>Best regards,</p>
+    <p>UAPCanteen Team</p>
+    
+</body>
+</html>

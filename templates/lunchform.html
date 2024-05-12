@@ -1,0 +1,84 @@
+{% extends "nav.html" %}
+
+{% block title %}
+Upload Lunch Item
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Upload Lunch</title>
+</head>
+    
+    
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    {% block content %}
+    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#F9F5F3] via-[#F9F5F3] to-[#F9F5F3] px-2">
+    <div class="bg-white p-6 rounded-lg shadow-md w-full justify-center sm:max-w-md">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Upload Lunch Item</h1>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+
+            <!-- Name -->
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" name="name" id="name" required class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+
+            <!-- Price -->
+            <div>
+                <label for="price" class="block text-sm font-medium text-gray-700">Price ($)</label>
+                <input type="number" name="price" id="price" required class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+
+            <!-- Description -->
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea name="description" id="description" rows="3" required class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500"></textarea>
+            </div>
+
+            <!-- Image -->
+            <div>
+                <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
+                <input type="file" name="image" id="image" accept="image/*" required class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+
+            <!-- Discount -->
+            <div>
+                <label for="discount" class="block text-sm font-medium text-gray-700">Discount (%)</label>
+                <input type="number" name="discount" id="discount" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+
+            <!-- Rating -->
+            <div>
+                <label for="rating" class="block text-sm font-medium text-gray-700">Rating</label>
+                <input type="number" name="rating" id="rating" step="0.1" min="0" max="5" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+            </div>
+
+            <!-- Spiciness Level -->
+            <div>
+                <label for="spiciness_level" class="block text-sm font-medium text-gray-700">Spiciness Level</label>
+                <select name="spiciness_level" id="spiciness_level" class="mt-1 p-2 w-full border rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                    <option value="" disabled selected>Select Spiciness Level</option>
+                    <option value="Mild">Mild</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Spicy">Spicy</option>
+                    <option value="Extra Spicy">Extra Spicy</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition duration-300 focus:outline-none focus:ring focus:ring-blue-500">
+                Upload
+            </button>
+        </form>
+    </div>
+</div>
+    {% endblock %}
+</body>
+
+</html>

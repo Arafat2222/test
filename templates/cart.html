@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block title %}
+    Your Cart
+{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Add to Cart</title>
+</head>
+<body>
+    {% block content %}
+
+    <!-- {% for cart_item in cart_items %}
+    <div>
+        <h2>
+            {% if cart_item.breakfast %}
+                {{ cart_item.breakfast.name }}
+            {% elif cart_item.lunch %}
+                {{ cart_item.lunch.name }}
+            {% elif cart_item.dinner %}
+                {{ cart_item.dinner.name }}
+            {% endif %}
+        </h2>
+        <p>Quantity: {{ cart_item.quantity }}</p>
+        <p>Total Price: ${{ cart_item.total_price }}</p>
+        <p>Discount: ${{ cart_item.discount }}</p>
+        <a href="{% url 'update_quantity' cart_item.id 'increase' %}">Increase Quantity</a>
+        <a href="{% url 'update_quantity' cart_item.id 'decrease' %}">Decrease Quantity</a>
+        <a href="{% url 'remove_from_cart' cart_item.id %}">Remove from Cart</a>
+    </div>
+{% empty %}
+    <p>Your cart is empty.</p>
+{% endfor %}
+<p>Total Price: ${{ total_price }}</p> -->
+
+<div class="container mx-auto my-8" style="font-family: 'Poppins', sans-serif; font-optical-sizing: auto;">
+    <h1 class="text-center text-2xl font-semibold mt-4">Your Food Cart</h1>
+    <hr class="mt-2">
+
+    <div class="bg-white shadow-md rounded my-6">
+        <table class="w-full table-auto">
+            <thead>
+                <tr class="bg-gray-200 text-gray-600 uppercase text-md leading-normal">
+                    <th class="py-3 px-6 text-left">Item</th>
+                    <th class="py-3 px-6 text-left">Price</th>
+                    <th class="py-3 px-6 text-left">Quantity</th>
+                    <th class="py-3 px-6 text-left">Subtotal</th>
+                    <th class="py-3 px-6 text-left">Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-600 text-md font-regular">
+                {% for cart_item in cart_items %}
+                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="py-3 px-6 text-left whitespace-nowrap">
+                        <div class="flex items-center">
+                            <div class="mr-2">
+                                {% if cart_item.breakfast %}
+                                    <img src="{{ cart_item.breakfast.image.url }}" alt="{{ cart_item.breakfast.name }}" class="h-10 w-10 object-cover rounded">
+                                {% elif cart_item.lunch %}
+                                    <img src="{{ cart_item.lunch.image.url }}" alt="{{ cart_item.lunch.name }}" class="h-10 w-10 object-cover rounded">
+                                {% elif cart_item.dinner %}
+                                    <img src="{{ cart_item.dinner.image.url }}" alt="{{ cart_item.dinner.name }}" class="h-10 w-10 object-cover rounded">
+                                {% endif %}
+                            </div>
+                            <span>
+                                {% if cart_item.breakfast %}
+                                {{ cart_item.breakfast.name }}
+                            {% elif cart_item.lunch %}
+                                {{ cart_item.lunch.name }}
+                            {% elif cart_item.dinner %}
+                                {{ cart_item.dinner.name }}
+                            {% endif %}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="py-3 px-6 text-left">{{ cart_item.total_price }} TK</td>
+                    <td class="py-3 px-6 text-left">
+                        <div class="flex items-center">
+                            <form method="post" action="{% url 'update_quantity' cart_item.id 'decrease' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="bg-gray-200 text-gray-600 hover:bg-gray-300 rounded-full px-3 py-1">
+                                    -
+                                </button>
+                            </form>
+                            <span class="px-2">{{ cart_item.quantity }}</span>
+                            <form method="post" action="{% url 'update_quantity' cart_item.id 'increase' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="bg-gray-200 text-gray-600 hover:bg-gray-300 rounded-full px-3 py-1">
+                                    +
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                    <td class="py-3 px-6 text-left">TK {{ cart_item.total_price |floatformat:2 }} x {{ cart_item.quantity }}</td>
+                    <td class="py-3 px-6 text-left">
+                        <a href="{% url 'remove_from_cart' cart_item.id %}" class="text-red-600 hover:text-red-800">
+                            Remove
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+    <p class="text-red-600 text-center">Your cart is empty.Please Order your meals!!!</p>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="py-4 px-6 text-right">
+                        <strong>Total Price:</strong>
+                    </td>
+                    <td colspan="2" class="py-4 px-6">
+                        <strong>{{ total_price }} TK</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="flex justify-center mt-8">
+        <a href="{% url 'breakfast' %}" class="bg-gray-600 text-gray-100 font-semibold px-6 py-2 rounded-md hover:bg-gray-800 active:bg-gray-400 focus:outline-none focus-visible:outline-black mr-4">Add More Items</a>
+        <a href="{% url 'proceed_to_checkout' %}" class="bg-teal-600 text-white font-semibold px-6 py-2 rounded-md hover:bg-teal-900 active:bg-purple-800 focus:outline-none focus-visible:outline-black">Proceed to Checkout</a>
+    </div>
+</div>
+
+
+{% endblock %}
+</body>
+</html>
